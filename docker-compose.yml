@@ -1,0 +1,41 @@
+version: '2'
+
+services:
+  gru:
+    build:
+      context: ./salt-master/
+    environment:
+      SALT_NAME: master
+    networks:
+      - front-tier
+      - back-tier
+    expose:
+      - "4505"
+      - "4506"
+  bob:
+    build:
+      context: ./salt-minion/
+    environment:
+      SALT_NAME: bob
+    depends_on:
+      - gru
+    links:
+      - gru
+    networks:
+      - back-tier
+  stuart:
+    build:
+      context: ./salt-minion/
+    environment:
+      SALT_NAME: stuart
+    depends_on:
+      - gru
+    links:
+      - gru
+    networks:
+      - back-tier
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge

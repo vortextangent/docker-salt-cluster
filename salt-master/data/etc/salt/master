@@ -1,0 +1,3 @@
+reactor:
+    - 'salt/beacon/*/inotify//etc/ssh/ssh_config':
+        - salt://reactors/restore-sshconfig.sls

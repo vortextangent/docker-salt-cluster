@@ -1,0 +1,20 @@
+version: '2'
+
+services:
+  gru:
+    build:
+      context: ./salt-master/
+    volumes:
+      - ./salt-master/data/etc/salt:/etc/salt
+      - ./salt-master/data/srv/salt:/srv/salt
+      - ./salt-master/data/srv/pillar:/srv/pillar
+  bob:
+    build:
+      context: ./salt-minion/
+    volumes:
+      - ./salt-minion/data-bob:/etc/salt
+  stuart:
+    build:
+      context: ./salt-minion/
+    volumes:
+      - ./salt-minion/data-stuart:/etc/salt
